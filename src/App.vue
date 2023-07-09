@@ -1,35 +1,5 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link class="flex flex-col text-4xl text-white" to="/"
-        >Home</router-link
-      >
-      |
-      <router-link to="/about">About</router-link>
-    </nav>
+  <div id="app" class="bg-todo-white px-6 py-4">
     <router-view />
   </div>
 </template>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

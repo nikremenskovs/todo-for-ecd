@@ -3,3 +3,23 @@
 @tailwind components;
 
 @tailwind utilities;
+
+@font-face {
+  font-family: "Marmelad";
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+0000-5FFF;
+  src: local("Marmelad"),
+    url("@/assets/fonts/Marmelad-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "YesevaOne";
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+0000-5FFF;
+  src: local("YesevaOne"),
+    url("@/assets/fonts/YesevaOne-Regular.ttf") format("truetype");
+}
