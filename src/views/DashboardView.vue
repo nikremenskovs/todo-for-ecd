@@ -11,6 +11,7 @@
     <ul class="dashboard-items">
       <li
         v-for="n in 4"
+        :key="n"
         class="dashboard-items__all bg-todo-secondary mb-8 flex h-24 w-full items-center justify-between rounded-xl shadow-xl"
       >
         <div class="flex">
