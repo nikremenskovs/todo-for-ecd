@@ -32,5 +32,7 @@ export default {
     <ul class="mt-40 px-4">
       <TaskCard v-for="task in tasks" :key="task.id" :task="task" />
     </ul>
+
+    <slot />
   </section>
 </template>

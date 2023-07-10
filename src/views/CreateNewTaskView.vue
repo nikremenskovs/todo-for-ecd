@@ -1,3 +1,5 @@
 <template>
-  <h1>Create new task view</h1>
+  <BaseTasksView :pageTitle="'Create new task'">
+    <h1>FORM</h1>
+  </BaseTasksView>
 </template>

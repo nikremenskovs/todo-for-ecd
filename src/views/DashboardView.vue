@@ -33,7 +33,7 @@ export default {
         <li class="dashboard-items__all">
           <BaseButton :to="{ name: 'all' }" :background="'bg-todo-secondary'">
             <i class="fa-solid fa-list-check mr-4"></i>
-            All Tasks ({{ this.allTasks.length }})
+            All ({{ this.allTasks.length }})
           </BaseButton>
         </li>
 
@@ -43,7 +43,7 @@ export default {
             :background="'bg-todo-secondary'"
           >
             <i class="fa-solid fa-list-ul mr-4"></i>
-            Pending Tasks ({{ this.pendingTasks.length }})
+            Pending ({{ this.pendingTasks.length }})
           </BaseButton>
         </li>
 
@@ -53,21 +53,21 @@ export default {
             :background="'bg-todo-secondary'"
           >
             <i class="fa-solid fa-check mr-4"></i>
-            Completed Tasks ({{ this.completedTasks.length }})
+            Completed ({{ this.completedTasks.length }})
           </BaseButton>
         </li>
 
         <li class="dashboard-items__overdue">
           <BaseButton :to="{ name: 'overdue' }" :background="'bg-todo-red'">
             <i class="fa-solid fa-triangle-exclamation mr-4"></i>
-            Overdue Tasks ({{ this.overdueTasks.length }})
+            Overdue ({{ this.overdueTasks.length }})
           </BaseButton>
         </li>
 
         <li class="dashboard-items__new">
           <BaseButton :to="{ name: 'new' }" :background="'bg-todo-green'">
             <i class="fa-solid fa-square-plus mr-4"></i>
-            Create New Task
+            Create New
           </BaseButton>
         </li>
       </ul>
