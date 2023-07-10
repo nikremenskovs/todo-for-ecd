@@ -32,6 +32,11 @@ const routes = [
         component: () => import("../views/CompletedTasksView.vue"),
       },
       {
+        path: "overdue",
+        name: "overdue",
+        component: () => import("../views/OverdueTasksView.vue"),
+      },
+      {
         path: "new",
         name: "new",
         component: () => import("../views/CreateNewTaskView.vue"),

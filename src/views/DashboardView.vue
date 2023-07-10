@@ -1,3 +1,18 @@
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters([
+      "allTasks",
+      "completedTasks",
+      "pendingTasks",
+      "overdueTasks",
+    ]),
+  },
+};
+</script>
+
 <template>
   <section
     class="dashboard flex min-h-screen flex-col justify-center overflow-hidden"
@@ -28,7 +43,9 @@
               ></i>
               <div>
                 <h2 class="text-todo-white">All Tasks</h2>
-                <p class="text-todo-white/50">Total: 0</p>
+                <p class="text-todo-white/50">
+                  Total: {{ this.allTasks.length }}
+                </p>
               </div>
             </div>
             <i
@@ -36,6 +53,7 @@
             ></i>
           </router-link>
         </li>
+
         <li
           class="dashboard-items__pending mb-8 h-24 w-full rounded-xl bg-todo-secondary p-4 font-marmelad shadow-xl"
         >
@@ -47,7 +65,9 @@
               <i class="fa-solid fa-list-ul mr-4 text-2xl text-todo-white"></i>
               <div>
                 <h2 class="text-todo-white">Pending Tasks</h2>
-                <p class="text-todo-white/50">Total: 0</p>
+                <p class="text-todo-white/50">
+                  Total: {{ this.pendingTasks.length }}
+                </p>
               </div>
             </div>
             <i
@@ -66,7 +86,32 @@
               <i class="fa-solid fa-check mr-4 text-2xl text-todo-white"></i>
               <div>
                 <h2 class="text-todo-white">Completed Tasks</h2>
-                <p class="text-todo-white/50">Total: 0</p>
+                <p class="text-todo-white/50">
+                  Total: {{ this.completedTasks.length }}
+                </p>
+              </div>
+            </div>
+            <i
+              class="fa-solid fa-ellipsis-vertical self-start text-2xl text-todo-white"
+            ></i>
+          </router-link>
+        </li>
+        <li
+          class="dashboard-items__pending mb-8 h-24 w-full rounded-xl bg-todo-red p-4 font-marmelad shadow-xl"
+        >
+          <router-link
+            :to="{ name: 'overdue' }"
+            class="flex h-full items-center justify-between"
+          >
+            <div class="flex">
+              <i
+                class="fa-solid fa-triangle-exclamation mr-4 text-2xl text-todo-white"
+              ></i>
+              <div>
+                <h2 class="text-todo-white">Overdue Tasks</h2>
+                <p class="text-todo-white/50">
+                  Total: {{ this.overdueTasks.length }}
+                </p>
               </div>
             </div>
             <i

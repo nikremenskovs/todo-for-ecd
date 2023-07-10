@@ -1,8 +1,12 @@
 <script>
 import TaskCard from "@/components/TaskCard.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: { TaskCard },
+  computed: {
+    ...mapGetters(["pendingTasks"]),
+  },
 };
 </script>
 
@@ -21,27 +25,7 @@ export default {
     </div>
 
     <ul class="mt-40 px-4">
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
+      <TaskCard v-for="task in pendingTasks" :key="task.id" :task="task" />
     </ul>
   </section>
 </template>
