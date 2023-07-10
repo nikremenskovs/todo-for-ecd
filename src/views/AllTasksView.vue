@@ -13,7 +13,7 @@ export default {
 <template>
   <section class="absolute left-0 top-0 min-h-screen w-full bg-todo-white">
     <div
-      class="fixed flex w-full justify-around rounded-b-3xl bg-todo-yellow/50 px-4 pt-4 shadow-lg backdrop-blur-lg"
+      class="fixed flex w-full justify-around rounded-b-3xl bg-todo-yellow/50 px-4 pt-4 text-todo-primary shadow-lg backdrop-blur-lg"
     >
       <router-link to="/dashboard">
         <i class="fa-solid fa-arrow-left-long mb-4 text-4xl"></i>

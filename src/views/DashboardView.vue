@@ -30,109 +30,45 @@ export default {
         </p>
       </div>
       <ul class="dashboard-items z-10">
-        <li
-          class="dashboard-items__all mb-8 h-24 w-full rounded-xl bg-todo-secondary p-4 font-marmelad shadow-xl"
-        >
-          <router-link
-            :to="{ name: 'all' }"
-            class="flex h-full items-center justify-between"
-          >
-            <div class="flex">
-              <i
-                class="fa-solid fa-list-check mr-4 text-2xl text-todo-white"
-              ></i>
-              <div>
-                <h2 class="text-todo-white">All Tasks</h2>
-                <p class="text-todo-white/50">
-                  Total: {{ this.allTasks.length }}
-                </p>
-              </div>
-            </div>
-            <i
-              class="fa-solid fa-ellipsis-vertical self-start text-2xl text-todo-white"
-            ></i>
-          </router-link>
+        <li class="dashboard-items__all">
+          <BaseButton :to="{ name: 'all' }" :background="'bg-todo-secondary'">
+            <i class="fa-solid fa-list-check mr-4"></i>
+            All Tasks ({{ this.allTasks.length }})
+          </BaseButton>
         </li>
 
-        <li
-          class="dashboard-items__pending mb-8 h-24 w-full rounded-xl bg-todo-secondary p-4 font-marmelad shadow-xl"
-        >
-          <router-link
+        <li class="dashboard-items__pending">
+          <BaseButton
             :to="{ name: 'pending' }"
-            class="flex h-full items-center justify-between"
+            :background="'bg-todo-secondary'"
           >
-            <div class="flex">
-              <i class="fa-solid fa-list-ul mr-4 text-2xl text-todo-white"></i>
-              <div>
-                <h2 class="text-todo-white">Pending Tasks</h2>
-                <p class="text-todo-white/50">
-                  Total: {{ this.pendingTasks.length }}
-                </p>
-              </div>
-            </div>
-            <i
-              class="fa-solid fa-ellipsis-vertical self-start text-2xl text-todo-white"
-            ></i>
-          </router-link>
+            <i class="fa-solid fa-list-ul mr-4"></i>
+            Pending Tasks ({{ this.pendingTasks.length }})
+          </BaseButton>
         </li>
-        <li
-          class="dashboard-items__completed mb-8 h-24 w-full rounded-xl bg-todo-secondary p-4 font-marmelad shadow-xl"
-        >
-          <router-link
+
+        <li class="dashboard-items__completed">
+          <BaseButton
             :to="{ name: 'completed' }"
-            class="flex h-full items-center justify-between"
+            :background="'bg-todo-secondary'"
           >
-            <div class="flex">
-              <i class="fa-solid fa-check mr-4 text-2xl text-todo-white"></i>
-              <div>
-                <h2 class="text-todo-white">Completed Tasks</h2>
-                <p class="text-todo-white/50">
-                  Total: {{ this.completedTasks.length }}
-                </p>
-              </div>
-            </div>
-            <i
-              class="fa-solid fa-ellipsis-vertical self-start text-2xl text-todo-white"
-            ></i>
-          </router-link>
+            <i class="fa-solid fa-check mr-4"></i>
+            Completed Tasks ({{ this.completedTasks.length }})
+          </BaseButton>
         </li>
-        <li
-          class="dashboard-items__pending mb-8 h-24 w-full rounded-xl bg-todo-red p-4 font-marmelad shadow-xl"
-        >
-          <router-link
-            :to="{ name: 'overdue' }"
-            class="flex h-full items-center justify-between"
-          >
-            <div class="flex">
-              <i
-                class="fa-solid fa-triangle-exclamation mr-4 text-2xl text-todo-white"
-              ></i>
-              <div>
-                <h2 class="text-todo-white">Overdue Tasks</h2>
-                <p class="text-todo-white/50">
-                  Total: {{ this.overdueTasks.length }}
-                </p>
-              </div>
-            </div>
-            <i
-              class="fa-solid fa-ellipsis-vertical self-start text-2xl text-todo-white"
-            ></i>
-          </router-link>
+
+        <li class="dashboard-items__overdue">
+          <BaseButton :to="{ name: 'overdue' }" :background="'bg-todo-red'">
+            <i class="fa-solid fa-triangle-exclamation mr-4"></i>
+            Overdue Tasks ({{ this.overdueTasks.length }})
+          </BaseButton>
         </li>
-        <li
-          class="dashboard-items__completed mb-8 h-24 w-full rounded-xl bg-todo-green p-4 font-marmelad shadow-xl"
-        >
-          <router-link
-            :to="{ name: 'new' }"
-            class="flex h-full items-center justify-center text-center"
-          >
-            <div class="flex flex-col">
-              <h2 class="mb-2 text-xl text-todo-primary">Create a new task</h2>
-              <i
-                class="fa-solid fa-square-plus mr-4 text-3xl text-todo-primary"
-              ></i>
-            </div>
-          </router-link>
+
+        <li class="dashboard-items__new">
+          <BaseButton :to="{ name: 'new' }" :background="'bg-todo-green'">
+            <i class="fa-solid fa-square-plus mr-4"></i>
+            Create New Task
+          </BaseButton>
         </li>
       </ul>
     </div>

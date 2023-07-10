@@ -9,37 +9,47 @@ export default new Vuex.Store({
       {
         id: 1,
         title: "My first task",
+        dueDate: "30/03/2024",
+        description:
+          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
         editing: false,
-        dueDate: "30/03/2024",
       },
       {
         id: 2,
         title: "My second task",
+        dueDate: "30/03/1991",
+        description:
+          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
         editing: false,
-        dueDate: "30/03/1991",
       },
       {
         id: 3,
         title: "My third task",
+        dueDate: "30/03/1991",
+        description:
+          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
         editing: false,
-        dueDate: "30/03/1991",
       },
       {
         id: 4,
         title: "My fourth task",
+        dueDate: "30/03/1991",
+        description:
+          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: true,
         editing: false,
-        dueDate: "30/03/1991",
       },
       {
         id: 5,
         title: "My fifth task",
+        dueDate: "30/03/1991",
+        description:
+          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: true,
         editing: false,
-        dueDate: "30/03/1991",
       },
     ],
   },
@@ -62,7 +72,25 @@ export default new Vuex.Store({
       });
     },
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    updateTaskCompletion(state, { taskId, completed }) {
+      const task = state.tasks.find((task) => task.id === taskId);
+      if (task) {
+        task.completed = completed;
+      }
+    },
+    deleteTask(state, taskId) {
+      state.tasks = state.tasks.filter((task) => task.id !== taskId);
+    },
+  },
+  actions: {
+    setTaskCompletion({ commit }, { taskId, completed }) {
+      //api to server here?
+      commit("updateTaskCompletion", { taskId, completed });
+    },
+    deleteTask({ commit }, taskId) {
+      commit("deleteTask", taskId);
+    },
+  },
   modules: {},
 });

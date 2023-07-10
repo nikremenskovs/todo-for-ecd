@@ -1,3 +1,5 @@
+<script></script>
+
 <template>
   <section
     class="homepage flex h-screen flex-col items-center justify-center text-center text-todo-primary"
@@ -16,6 +18,8 @@
       productivity with our all-in-one to-do app, designed to streamline your
       tasks, prioritize goals, and ensure a successful and fulfilling day
     </p>
-    <router-link class="homepage__CTA" to="/dashboard">GET STARTED</router-link>
+    <BaseButton :to="{ name: 'dashboard' }" :background="'bg-todo-green'"
+      >GET STARTED</BaseButton
+    >
   </section>
 </template>
