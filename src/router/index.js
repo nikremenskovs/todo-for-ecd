@@ -15,26 +15,28 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: () => import("../views/DashboardView.vue"),
-  },
-  {
-    path: "/all",
-    name: "all",
-    component: () => import("../views/AllTasksView.vue"),
-  },
-  {
-    path: "/pending",
-    name: "pending",
-    component: () => import("../views/PendingTasksView.vue"),
-  },
-  {
-    path: "/completed",
-    name: "completed",
-    component: () => import("../views/CompletedTasksView.vue"),
-  },
-  {
-    path: "/new",
-    name: "new",
-    component: () => import("../views/CreateNewTaskView.vue"),
+    children: [
+      {
+        path: "all",
+        name: "all",
+        component: () => import("../views/AllTasksView.vue"),
+      },
+      {
+        path: "pending",
+        name: "pending",
+        component: () => import("../views/PendingTasksView.vue"),
+      },
+      {
+        path: "completed",
+        name: "completed",
+        component: () => import("../views/CompletedTasksView.vue"),
+      },
+      {
+        path: "new",
+        name: "new",
+        component: () => import("../views/CreateNewTaskView.vue"),
+      },
+    ],
   },
 ];
 
