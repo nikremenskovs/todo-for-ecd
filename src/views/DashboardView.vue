@@ -29,7 +29,7 @@ export default {
           Here you can navigate to your tasks or create a new one!
         </p>
       </div>
-      <ul class="dashboard-items z-10">
+      <ul class="dashboard-items z-10 space-y-4">
         <li class="dashboard-items__all">
           <BaseButton :to="{ name: 'all' }" :background="'bg-todo-secondary'">
             <i class="fa-solid fa-list-check mr-4"></i>

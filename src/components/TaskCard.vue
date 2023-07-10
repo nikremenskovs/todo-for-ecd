@@ -87,19 +87,11 @@ export default {
         <p class="font-yeseva-one text-2xl text-todo-white">
           Are you sure you want to delete this item?
         </p>
-        <div class="flex w-full justify-around">
-          <BaseButton
-            @click="deleteTask"
-            :background="'bg-todo-green'"
-            class="w-2/5"
-          >
+        <div class="flex w-full justify-around space-x-4">
+          <BaseButton @click="deleteTask" :background="'bg-todo-green'">
             Yes
           </BaseButton>
-          <BaseButton
-            @click="cancelDelete"
-            :background="'bg-todo-red'"
-            class="w-2/5"
-          >
+          <BaseButton @click="cancelDelete" :background="'bg-todo-red'">
             No
           </BaseButton>
         </div>
