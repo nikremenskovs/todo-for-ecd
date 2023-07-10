@@ -8,7 +8,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "all-tasks",
+    name: "home",
     component: HomeView,
   },
   {
@@ -30,6 +30,11 @@ const routes = [
     path: "/completed",
     name: "completed",
     component: () => import("../views/CompletedTasksView.vue"),
+  },
+  {
+    path: "/new",
+    name: "new",
+    component: () => import("../views/CreateNewTaskView.vue"),
   },
 ];
 
