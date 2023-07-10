@@ -1,22 +1,4 @@
 <template>
-  <!-- <div class="task-card flex justify-between">
-    <input class="task-card__checkbox" type="checkbox" />
-    <label for="">
-      <div class="task-card__text flex justify-between">
-        <h2>Task name</h2>
-        <p>Due date</p>
-      </div>
-      <p>
-        Task description Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Cupiditate, aperiam?
-      </p>
-      <div class="task-card__actions flex w-1/3 space-x-4 text-2xl">
-        <i class="fa-solid fa-trash-can"></i>
-        <i class="fa-regular fa-clone"></i>
-        <i class="fa-solid fa-pen-to-square"></i>
-      </div>
-    </label>
-  </div> -->
   <li
     class="group mt-8 flex w-full justify-between border-b-2 border-todo-primary/25 lg:hover:border-todo-primary/75"
   >
