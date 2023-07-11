@@ -9,7 +9,7 @@ export default new Vuex.Store({
       {
         id: 1,
         title: "My first task",
-        dueDate: "30/03/2024",
+        dueDate: "2023-07-01",
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
@@ -18,7 +18,7 @@ export default new Vuex.Store({
       {
         id: 2,
         title: "My second task",
-        dueDate: "30/03/1991",
+        dueDate: "2023-07-02",
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
@@ -27,7 +27,7 @@ export default new Vuex.Store({
       {
         id: 3,
         title: "My third task",
-        dueDate: "30/03/1991",
+        dueDate: "2023-07-03",
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
@@ -36,7 +36,7 @@ export default new Vuex.Store({
       {
         id: 4,
         title: "My fourth task",
-        dueDate: "30/03/1991",
+        dueDate: "2023-07-04",
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: true,
@@ -45,7 +45,7 @@ export default new Vuex.Store({
       {
         id: 5,
         title: "My fifth task",
-        dueDate: "30/03/1991",
+        dueDate: "2023-07-05",
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: true,
@@ -55,18 +55,26 @@ export default new Vuex.Store({
   },
   getters: {
     allTasks(state) {
-      return state.tasks;
+      return state.tasks
+        .slice()
+        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1));
     },
     completedTasks(state) {
-      return state.tasks.filter((task) => task.completed);
+      return state.tasks
+        .filter((task) => task.completed)
+        .slice()
+        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1));
     },
     pendingTasks(state) {
-      return state.tasks.filter((task) => !task.completed);
+      return state.tasks
+        .filter((task) => !task.completed)
+        .slice()
+        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1));
     },
     overdueTasks(state, getters) {
       const today = new Date();
       return getters.pendingTasks.filter((task) => {
-        const [day, month, year] = task.dueDate.split("/");
+        const [year, month, day] = task.dueDate.split("-");
         const dueDate = new Date(year, month - 1, day);
         return dueDate <= today;
       });
@@ -82,15 +90,29 @@ export default new Vuex.Store({
     deleteTask(state, taskId) {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
     },
+    createNewTask(state, payload) {
+      state.tasks.push(payload);
+    },
   },
   actions: {
-    setTaskCompletion({ commit }, { taskId, completed }) {
+    setTaskCompletion(context, { taskId, completed }) {
       //api to server here?
-      commit("updateTaskCompletion", { taskId, completed });
+      context.commit("updateTaskCompletion", { taskId, completed });
     },
-    deleteTask({ commit }, taskId) {
-      commit("deleteTask", taskId);
+    deleteTask(context, taskId) {
+      context.commit("deleteTask", taskId);
+    },
+    createNewTask(context, data) {
+      const newTaskId = crypto.randomUUID();
+      const newTaskData = {
+        id: newTaskId,
+        title: data.taskTitle,
+        dueDate: data.taskDueDate,
+        description: data.taskDescription,
+        completed: data.taskCompleted,
+        editing: false,
+      };
+      context.commit("createNewTask", newTaskData);
     },
   },
-  modules: {},
 });

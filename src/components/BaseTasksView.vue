@@ -10,6 +10,7 @@ export default {
     tasks: {
       type: Array,
       required: false,
+      default: () => [],
     },
   },
 };

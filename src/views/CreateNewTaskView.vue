@@ -1,5 +1,21 @@
+<script>
+import CreateNewTaskForm from "@/components/CreateNewTaskForm.vue";
+import { mapActions } from "vuex";
+
+export default {
+  components: { CreateNewTaskForm },
+  methods: {
+    ...mapActions(["createNewTask"]),
+    saveFormData(data) {
+      this.createNewTask(data);
+      this.$router.push("/dashboard");
+    },
+  },
+};
+</script>
+
 <template>
   <BaseTasksView :pageTitle="'Create new task'">
-    <h1>FORM</h1>
+    <CreateNewTaskForm @form-data="saveFormData" />
   </BaseTasksView>
 </template>
