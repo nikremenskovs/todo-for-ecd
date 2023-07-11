@@ -1,8 +1,5 @@
 <script>
-import BaseInput from "@/components/BaseInput.vue";
-
 export default {
-  components: { BaseInput },
   emits: ["form-data"],
   data() {
     return {
@@ -28,7 +25,7 @@ export default {
   <form @submit.prevent="submitForm" class="flex flex-col space-y-10 px-4">
     <BaseInput
       type="text"
-      placeholder="What are you planning to do?"
+      placeholder="Your goal is..?"
       v-model.trim="model.taskTitle"
     />
     <BaseInput
