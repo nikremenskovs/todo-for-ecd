@@ -32,7 +32,7 @@ export default {
   computed: {
     isOverdue() {
       const today = new Date();
-      const [day, month, year] = this.task.dueDate.split("-");
+      const [year, month, day] = this.task.dueDate.split("-");
       const dueDate = new Date(year, month - 1, day);
       return dueDate <= today && !this.task.completed;
     },

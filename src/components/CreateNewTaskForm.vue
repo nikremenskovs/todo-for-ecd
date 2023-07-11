@@ -1,5 +1,8 @@
 <script>
+import BaseInput from "@/components/BaseInput.vue";
+
 export default {
+  components: { BaseInput },
   emits: ["form-data"],
   data() {
     return {
@@ -23,18 +26,23 @@ export default {
 
 <template>
   <form @submit.prevent="submitForm" class="flex flex-col space-y-10 px-4">
-    <input
+    <BaseInput
       type="text"
-      placeholder="what are you planning to do?"
+      placeholder="What are you planning to do?"
       v-model.trim="model.taskTitle"
     />
-    <input
+    <BaseInput
       type="textarea"
-      placeholder="desribe you plan..."
+      placeholder="Desribe your plan..."
       v-model.trim="model.taskDescription"
     />
-    <input type="date" v-model="model.taskDueDate" />
-    <select v-model="model.taskCompleted">
+    <BaseInput type="date" v-model="model.taskDueDate" />
+
+    <select
+      v-model="model.taskCompleted"
+      class="h-12 rounded-xl bg-todo-yellow/50 px-2 font-marmelad text-xl text-todo-primary"
+    >
+      <option :value="null" disabled>Select status</option>
       <option :value="true">Completed</option>
       <option :value="false">Pending</option>
     </select>

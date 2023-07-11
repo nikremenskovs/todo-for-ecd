@@ -27,7 +27,7 @@ export default new Vuex.Store({
       {
         id: 3,
         title: "My third task",
-        dueDate: "2023-07-03",
+        dueDate: "2023-07-20",
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
