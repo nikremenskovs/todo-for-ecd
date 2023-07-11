@@ -9,7 +9,6 @@ export default {
         taskDueDate: "",
         taskDescription: "",
         taskCompleted: null,
-        taskEditing: false,
       },
     };
   },

@@ -13,7 +13,6 @@ export default new Vuex.Store({
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
-        editing: false,
       },
       {
         id: 2,
@@ -22,7 +21,6 @@ export default new Vuex.Store({
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
-        editing: false,
       },
       {
         id: 3,
@@ -31,7 +29,6 @@ export default new Vuex.Store({
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: false,
-        editing: false,
       },
       {
         id: 4,
@@ -40,7 +37,6 @@ export default new Vuex.Store({
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: true,
-        editing: false,
       },
       {
         id: 5,
@@ -49,7 +45,6 @@ export default new Vuex.Store({
         description:
           "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
         completed: true,
-        editing: false,
       },
     ],
   },
@@ -110,7 +105,6 @@ export default new Vuex.Store({
         dueDate: data.taskDueDate,
         description: data.taskDescription,
         completed: data.taskCompleted,
-        editing: false,
       };
       context.commit("createNewTask", newTaskData);
     },

@@ -5,6 +5,7 @@ export default {
   data() {
     return {
       showConfirmationModal: false,
+      isEditing: false,
     };
   },
   props: {
@@ -28,6 +29,9 @@ export default {
     cancelDelete() {
       this.showConfirmationModal = false;
     },
+    editTask() {
+      this.isEditing = !this.isEditing;
+    },
   },
   computed: {
     isOverdue() {
@@ -49,6 +53,7 @@ export default {
         type="checkbox"
         name="checkbox"
         :checked="task.completed"
+        :class="isEditing ? 'invisible' : ''"
         class="peer h-8 w-8 appearance-none rounded-full border-2 border-todo-primary/25 checked:bg-todo-primary focus:outline-none lg:cursor-pointer lg:group-hover:border-todo-primary/75"
         @change="updateCompletion"
       />
@@ -56,26 +61,34 @@ export default {
       <label
         for=""
         class="mb-8 flex w-4/5 text-todo-primary peer-checked:font-bold lg:cursor-pointer"
-        :class="[
-          isOverdue ? 'text-todo-red' : 'text-todo-primary',
-          task.completed ? 'line-through' : '',
-        ]"
+        :class="isOverdue ? 'text-todo-red' : 'text-todo-primary'"
       >
         <div class="w-4/5 font-marmelad">
-          <h2 class="text-xl font-bold">
-            {{ task.title }}
-          </h2>
-          <p class="mb-4">Due: {{ task.dueDate }}</p>
-          <p class="mb-4">
-            {{ task.description }}
-          </p>
-          <div class="task-card__actions flex w-1/3 space-x-4 text-xl">
+          <div v-if="isEditing" class="mb-4 flex flex-col space-y-4">
+            <BaseInput type="text" :value="task.title" />
+            <BaseInput type="date" />
+            <BaseInput type="textarea" :value="task.description" />
+          </div>
+          <div v-else :class="task.completed ? 'line-through' : ''">
+            <h2 class="text-xl font-bold">
+              {{ task.title }}
+            </h2>
+            <p class="mb-4">Due: {{ task.dueDate }}</p>
+            <p class="mb-4">
+              {{ task.description }}
+            </p>
+          </div>
+          <div v-if="isEditing" class="flex h-12 space-x-4">
+            <BaseButton :background="'bg-todo-green'">Save</BaseButton>
+            <BaseButton :background="'bg-todo-red'">Discard</BaseButton>
+          </div>
+          <div v-else class="task-card__actions flex w-1/3 space-x-4 text-xl">
             <i
               class="fa-solid fa-trash-can"
               @click="showConfirmationModal = true"
             ></i>
             <i class="fa-regular fa-clone"></i>
-            <i class="fa-solid fa-pen-to-square"></i>
+            <i class="fa-solid fa-pen-to-square" @click="editTask"></i>
           </div>
         </div>
       </label>
