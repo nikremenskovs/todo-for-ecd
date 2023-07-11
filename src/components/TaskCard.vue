@@ -1,11 +1,16 @@
 <script>
-import ConfirmationModal from "@/components/ConfirmationModal.vue";
+import { mapActions } from "vuex";
+
 export default {
-  components: { ConfirmationModal },
   data() {
     return {
       showConfirmationModal: false,
       isEditing: false,
+      isDeleting: false,
+      isCloning: false,
+      updatedTaskTitle: this.task.title,
+      updatedTaskDescription: this.task.description,
+      updatedTaskDueDate: this.task.dueDate,
     };
   },
   props: {
@@ -15,22 +20,53 @@ export default {
     },
   },
   methods: {
+    ...mapActions([
+      "createNewTask",
+      "updateTask",
+      "setTaskCompletion",
+      "deleteTask",
+    ]),
     updateCompletion(event) {
       const completed = event.target.checked;
-      this.$store.dispatch("setTaskCompletion", {
-        taskId: this.task.id,
-        completed,
-      });
+      this.setTaskCompletion({ taskId: this.task.id, completed });
     },
-    deleteTask() {
-      this.$store.dispatch("deleteTask", this.task.id);
+    removeTask() {
+      this.deleteTask(this.task.id);
       this.showConfirmationModal = false;
     },
     cancelDelete() {
-      this.showConfirmationModal = false;
+      this.isDeleting = false;
     },
-    editTask() {
+    toggleEditing() {
       this.isEditing = !this.isEditing;
+    },
+    discardEditChanges() {
+      this.updatedTaskTitle = this.task.title;
+      this.updatedTaskDescription = this.task.description;
+      this.updatedTaskDueDate = this.task.dueDate;
+      this.toggleEditing();
+    },
+    saveEditChanges() {
+      const updatedTask = {
+        id: this.task.id,
+        title: this.updatedTaskTitle,
+        dueDate: this.updatedTaskDueDate,
+        description: this.updatedTaskDescription,
+        completed: this.task.completed,
+      };
+      this.updateTask(updatedTask);
+      this.toggleEditing();
+    },
+    cloneTask() {
+      const taskToClone = {
+        title: this.task.title,
+        dueDate: this.task.dueDate,
+        description: this.task.description,
+        completed: this.task.completed,
+      };
+      this.createNewTask(taskToClone);
+
+      this.isCloning = false;
     },
   },
   computed: {
@@ -53,22 +89,72 @@ export default {
         type="checkbox"
         name="checkbox"
         :checked="task.completed"
-        :class="isEditing ? 'invisible' : ''"
+        :class="isEditing || isDeleting || isCloning ? 'invisible' : ''"
         class="peer h-8 w-8 appearance-none rounded-full border-2 border-todo-primary/25 checked:bg-todo-primary focus:outline-none lg:cursor-pointer lg:group-hover:border-todo-primary/75"
         @change="updateCompletion"
       />
 
       <label
         for=""
-        class="mb-8 flex w-4/5 text-todo-primary peer-checked:font-bold lg:cursor-pointer"
+        class="mb-8 flex w-4/5 text-todo-primary peer-checked:font-bold"
         :class="isOverdue ? 'text-todo-red' : 'text-todo-primary'"
       >
         <div class="w-4/5 font-marmelad">
           <div v-if="isEditing" class="mb-4 flex flex-col space-y-4">
-            <BaseInput type="text" :value="task.title" />
-            <BaseInput type="date" />
-            <BaseInput type="textarea" :value="task.description" />
+            <BaseInput
+              type="text"
+              :value="task.title"
+              v-model="updatedTaskTitle"
+            />
+            <BaseInput type="date" v-model="updatedTaskDueDate" />
+            <BaseInput
+              type="text"
+              :value="task.description"
+              v-model="updatedTaskDescription"
+            />
+            <div class="flex h-12 space-x-4">
+              <BaseButton :background="'bg-todo-green'" @click="saveEditChanges"
+                >Save</BaseButton
+              >
+              <BaseButton
+                :background="'bg-todo-red'"
+                @click="discardEditChanges"
+                >Discard</BaseButton
+              >
+            </div>
           </div>
+
+          <div v-else-if="isDeleting">
+            <p class="mb-8 font-yeseva-one text-2xl text-todo-primary">
+              Would you like to delete this task?
+            </p>
+            <div class="flex h-12 space-x-4">
+              <BaseButton @click="removeTask" :background="'bg-todo-green'">
+                Yes
+              </BaseButton>
+              <BaseButton @click="cancelDelete" :background="'bg-todo-red'">
+                No
+              </BaseButton>
+            </div>
+          </div>
+
+          <div v-else-if="isCloning">
+            <p class="mb-8 font-yeseva-one text-2xl text-todo-primary">
+              Would you like to clone this task?
+            </p>
+            <div class="flex h-12 space-x-4">
+              <BaseButton @click="cloneTask" :background="'bg-todo-green'">
+                Yes
+              </BaseButton>
+              <BaseButton
+                @click="isCloning = false"
+                :background="'bg-todo-red'"
+              >
+                No
+              </BaseButton>
+            </div>
+          </div>
+
           <div v-else :class="task.completed ? 'line-through' : ''">
             <h2 class="text-xl font-bold">
               {{ task.title }}
@@ -78,22 +164,28 @@ export default {
               {{ task.description }}
             </p>
           </div>
-          <div v-if="isEditing" class="flex h-12 space-x-4">
-            <BaseButton :background="'bg-todo-green'">Save</BaseButton>
-            <BaseButton :background="'bg-todo-red'">Discard</BaseButton>
-          </div>
-          <div v-else class="task-card__actions flex w-1/3 space-x-4 text-xl">
+
+          <div
+            :class="isEditing || isDeleting || isCloning ? 'invisible' : ''"
+            class="task-card__actions flex w-1/3 space-x-4 text-xl"
+          >
             <i
-              class="fa-solid fa-trash-can"
-              @click="showConfirmationModal = true"
+              class="fa-solid fa-trash-can lg:cursor-pointer"
+              @click="isDeleting = true"
             ></i>
-            <i class="fa-regular fa-clone"></i>
-            <i class="fa-solid fa-pen-to-square" @click="editTask"></i>
+            <i
+              class="fa-regular fa-clone lg:cursor-pointer"
+              @click="isCloning = true"
+            ></i>
+            <i
+              class="fa-solid fa-pen-to-square lg:cursor-pointer"
+              @click="isEditing = true"
+            ></i>
           </div>
         </div>
       </label>
     </li>
-    <ConfirmationModal v-if="showConfirmationModal">
+    <!-- <ConfirmationModal v-if="showConfirmationModal">
       <div
         class="flex h-full flex-col items-center justify-evenly p-6 text-center"
       >
@@ -101,7 +193,7 @@ export default {
           Are you sure you want to delete this item?
         </p>
         <div class="flex w-full justify-around space-x-4">
-          <BaseButton @click="deleteTask" :background="'bg-todo-green'">
+          <BaseButton @click="removeTask" :background="'bg-todo-green'">
             Yes
           </BaseButton>
           <BaseButton @click="cancelDelete" :background="'bg-todo-red'">
@@ -109,6 +201,6 @@ export default {
           </BaseButton>
         </div>
       </div>
-    </ConfirmationModal>
+    </ConfirmationModal> -->
   </div>
 </template>

@@ -4,11 +4,11 @@ export default {
   data() {
     return {
       model: {
-        taskId: null,
-        taskTitle: "",
-        taskDueDate: "",
-        taskDescription: "",
-        taskCompleted: null,
+        id: null,
+        title: "",
+        dueDate: "",
+        description: "",
+        completed: null,
       },
     };
   },
@@ -25,17 +25,17 @@ export default {
     <BaseInput
       type="text"
       placeholder="Your goal is..?"
-      v-model.trim="model.taskTitle"
+      v-model.trim="model.title"
     />
     <BaseInput
       type="textarea"
-      placeholder="Desribe your plan..."
-      v-model.trim="model.taskDescription"
+      placeholder="Describe your plan..."
+      v-model.trim="model.description"
     />
-    <BaseInput type="date" v-model="model.taskDueDate" />
+    <BaseInput type="date" v-model="model.dueDate" />
 
     <select
-      v-model="model.taskCompleted"
+      v-model="model.completed"
       class="h-12 rounded-xl bg-todo-yellow/50 px-2 font-marmelad text-xl text-todo-primary"
     >
       <option :value="null" disabled>Select status</option>

@@ -82,11 +82,17 @@ export default new Vuex.Store({
         task.completed = completed;
       }
     },
-    deleteTask(state, taskId) {
-      state.tasks = state.tasks.filter((task) => task.id !== taskId);
+    deleteTask(state, payload) {
+      state.tasks = state.tasks.filter((task) => task.id !== payload);
     },
     createNewTask(state, payload) {
       state.tasks.push(payload);
+    },
+    updateTask(state, payload) {
+      const index = state.tasks.findIndex((task) => task.id === payload.id);
+      if (index !== -1) {
+        state.tasks.splice(index, 1, payload);
+      }
     },
   },
   actions: {
@@ -94,19 +100,22 @@ export default new Vuex.Store({
       //api to server here?
       context.commit("updateTaskCompletion", { taskId, completed });
     },
-    deleteTask(context, taskId) {
-      context.commit("deleteTask", taskId);
+    deleteTask(context, data) {
+      context.commit("deleteTask", data);
     },
     createNewTask(context, data) {
       const newTaskId = crypto.randomUUID();
       const newTaskData = {
         id: newTaskId,
-        title: data.taskTitle,
-        dueDate: data.taskDueDate,
-        description: data.taskDescription,
-        completed: data.taskCompleted,
+        title: data.title,
+        dueDate: data.dueDate,
+        description: data.description,
+        completed: data.completed,
       };
       context.commit("createNewTask", newTaskData);
+    },
+    updateTask(context, data) {
+      context.commit("updateTask", data);
     },
   },
 });
