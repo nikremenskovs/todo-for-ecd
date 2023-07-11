@@ -15,63 +15,67 @@ export default {
 
 <template>
   <section
-    class="dashboard flex min-h-screen flex-col justify-center overflow-hidden"
+    class="dashboard flex min-h-screen flex-col justify-center overflow-hidden lg:flex-row lg:justify-around"
   >
-    <div class="dashboard--container mx-auto max-w-md">
-      <div class="dashboard__text z-10 mb-16 text-todo-primary">
-        <div class="flex justify-between">
-          <h1 class="mb-8 w-3/5 font-yeseva-one text-2xl tracking-wider">
-            Welcome to your Dashboard
-          </h1>
-          <i class="fa-solid fa-table-columns text-4xl"></i>
+    <div
+      class="dashboard--container flex justify-center lg:mx-0 lg:mt-28 lg:w-3/5"
+    >
+      <div class="lg:fixed">
+        <div class="dashboard__text z-10 mb-16 text-todo-primary">
+          <div class="flex justify-between">
+            <h1 class="mb-8 w-3/5 font-yeseva-one text-2xl tracking-wider">
+              Dashboard
+            </h1>
+            <i class="fa-solid fa-table-columns text-4xl"></i>
+          </div>
+          <p class="font-marmelad text-base tracking-wide">
+            Here you can navigate to your tasks or create a new one!
+          </p>
         </div>
-        <p class="font-marmelad text-base tracking-wide">
-          Here you can navigate to your tasks or create a new one!
-        </p>
+        <ul class="dashboard-items z-10 space-y-4">
+          <li class="dashboard-items__all">
+            <BaseButton :to="{ name: 'all' }" :background="'bg-todo-secondary'">
+              <i class="fa-solid fa-list-check mr-4"></i>
+              All ({{ this.allTasks.length }})
+            </BaseButton>
+          </li>
+
+          <li class="dashboard-items__pending">
+            <BaseButton
+              :to="{ name: 'pending' }"
+              :background="'bg-todo-secondary'"
+            >
+              <i class="fa-solid fa-list-ul mr-4"></i>
+              Pending ({{ this.pendingTasks.length }})
+            </BaseButton>
+          </li>
+
+          <li class="dashboard-items__completed">
+            <BaseButton
+              :to="{ name: 'completed' }"
+              :background="'bg-todo-secondary'"
+            >
+              <i class="fa-solid fa-check mr-4"></i>
+              Completed ({{ this.completedTasks.length }})
+            </BaseButton>
+          </li>
+
+          <li class="dashboard-items__overdue">
+            <BaseButton :to="{ name: 'overdue' }" :background="'bg-todo-red'">
+              <i class="fa-solid fa-triangle-exclamation mr-4"></i>
+              Overdue ({{ this.overdueTasks.length }})
+            </BaseButton>
+          </li>
+
+          <li class="dashboard-items__new">
+            <BaseButton :to="{ name: 'new' }" :background="'bg-todo-green'">
+              <i class="fa-solid fa-square-plus mr-4"></i>
+              Create New
+            </BaseButton>
+          </li>
+        </ul>
       </div>
-      <ul class="dashboard-items z-10 space-y-4">
-        <li class="dashboard-items__all">
-          <BaseButton :to="{ name: 'all' }" :background="'bg-todo-secondary'">
-            <i class="fa-solid fa-list-check mr-4"></i>
-            All ({{ this.allTasks.length }})
-          </BaseButton>
-        </li>
-
-        <li class="dashboard-items__pending">
-          <BaseButton
-            :to="{ name: 'pending' }"
-            :background="'bg-todo-secondary'"
-          >
-            <i class="fa-solid fa-list-ul mr-4"></i>
-            Pending ({{ this.pendingTasks.length }})
-          </BaseButton>
-        </li>
-
-        <li class="dashboard-items__completed">
-          <BaseButton
-            :to="{ name: 'completed' }"
-            :background="'bg-todo-secondary'"
-          >
-            <i class="fa-solid fa-check mr-4"></i>
-            Completed ({{ this.completedTasks.length }})
-          </BaseButton>
-        </li>
-
-        <li class="dashboard-items__overdue">
-          <BaseButton :to="{ name: 'overdue' }" :background="'bg-todo-red'">
-            <i class="fa-solid fa-triangle-exclamation mr-4"></i>
-            Overdue ({{ this.overdueTasks.length }})
-          </BaseButton>
-        </li>
-
-        <li class="dashboard-items__new">
-          <BaseButton :to="{ name: 'new' }" :background="'bg-todo-green'">
-            <i class="fa-solid fa-square-plus mr-4"></i>
-            Create New
-          </BaseButton>
-        </li>
-      </ul>
     </div>
-    <router-view />
+    <router-view class="lg:static lg:flex-grow lg:pl-16" />
   </section>
 </template>

@@ -8,7 +8,7 @@ export default {
     ...mapActions(["createNewTask"]),
     saveFormData(data) {
       this.createNewTask(data);
-      this.$router.push("/dashboard");
+      this.$router.push({ name: "all" });
     },
   },
 };

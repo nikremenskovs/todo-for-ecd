@@ -4,7 +4,6 @@
   <section
     class="homepage flex h-screen flex-col items-center justify-center text-center text-todo-primary"
   >
-    <!-- make the image responsive by utilising picture tag -->
     <img
       class="homepage__image mb-12 h-64 w-64 rounded-full"
       src="@/assets/images/dashboardImage.jpg"
