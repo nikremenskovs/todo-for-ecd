@@ -16,6 +16,7 @@ export default {
 <template>
   <div>
     <input
+      :class="this.error ? 'border-2 border-todo-red' : ''"
       class="mb-2 h-12 w-full rounded-xl bg-todo-yellow/50 px-2 font-marmelad text-xl text-todo-primary placeholder:text-todo-primary"
       v-bind="$attrs"
       @input="$emit('input', $event.target.value)"
