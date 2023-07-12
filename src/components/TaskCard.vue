@@ -1,17 +1,12 @@
 <script>
+import useVuelidate from "@vuelidate/core";
+
+import { required, maxLength, helpers } from "@vuelidate/validators";
 import { mapActions } from "vuex";
 
 export default {
-  data() {
-    return {
-      showConfirmationModal: false,
-      isEditing: false,
-      isDeleting: false,
-      isCloning: false,
-      updatedTaskTitle: this.task.title,
-      updatedTaskDescription: this.task.description,
-      updatedTaskDueDate: this.task.dueDate,
-    };
+  setup() {
+    return { v$: useVuelidate() };
   },
   props: {
     task: {
@@ -19,6 +14,74 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      isEditing: false,
+      isDeleting: false,
+      isCloning: false,
+
+      twoWeeksBeforeToday: new Date(
+        Date.now() - 14 * 24 * 60 * 60 * 1000
+      ).toISOString(),
+      twoWeeksFromToday: new Date(
+        Date.now() + 14 * 24 * 60 * 60 * 1000
+      ).toISOString(),
+      dueDateErrorMessage:
+        "This must be within two weeks either way from today!",
+
+      model: {
+        updatedTaskTitle: this.task.title,
+        updatedTaskDescription: this.task.description,
+        updatedTaskDueDate: this.task.dueDate,
+      },
+
+      errors: {
+        updatedTaskTitle: "",
+        updatedTaskDescription: "",
+        updatedTaskDueDate: "",
+      },
+    };
+  },
+  validations() {
+    return {
+      model: {
+        updatedTaskTitle: {
+          required: helpers.withMessage(
+            "Ensure you enter a task name!",
+            required
+          ),
+          maxLength: maxLength(60),
+          $lazy: true,
+        },
+
+        updatedTaskDueDate: {
+          required: helpers.withMessage(
+            "Ensure you enter a due date!",
+            required
+          ),
+
+          minValue: helpers.withMessage(
+            this.dueDateErrorMessage,
+            (value) => value > this.twoWeeksBeforeToday
+          ),
+          maxValue: helpers.withMessage(
+            this.dueDateErrorMessage,
+            (value) => value < this.twoWeeksFromToday
+          ),
+        },
+
+        updatedTaskDescription: {
+          required: helpers.withMessage(
+            "Ensure you enter description for you task!",
+            required
+          ),
+          maxLength: maxLength(300),
+          $lazy: true,
+        },
+      },
+    };
+  },
+
   methods: {
     ...mapActions([
       "createNewTask",
@@ -41,21 +104,24 @@ export default {
       this.isEditing = !this.isEditing;
     },
     discardEditChanges() {
-      this.updatedTaskTitle = this.task.title;
-      this.updatedTaskDescription = this.task.description;
-      this.updatedTaskDueDate = this.task.dueDate;
+      this.model.updatedTaskTitle = this.task.title;
+      this.model.updatedTaskDescription = this.task.description;
+      this.model.updatedTaskDueDate = this.task.dueDate;
       this.toggleEditing();
     },
     saveEditChanges() {
-      const updatedTask = {
-        id: this.task.id,
-        title: this.updatedTaskTitle,
-        dueDate: this.updatedTaskDueDate,
-        description: this.updatedTaskDescription,
-        completed: this.task.completed,
-      };
-      this.updateTask(updatedTask);
-      this.toggleEditing();
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        const updatedTask = {
+          id: this.task.id,
+          title: this.model.updatedTaskTitle,
+          dueDate: this.model.updatedTaskDueDate,
+          description: this.model.updatedTaskDescription,
+          completed: this.task.completed,
+        };
+        this.updateTask(updatedTask);
+        this.toggleEditing();
+      }
     },
     cloneTask() {
       const taskToClone = {
@@ -67,6 +133,13 @@ export default {
       this.createNewTask(taskToClone);
 
       this.isCloning = false;
+    },
+    bundleErrors(errorsArray) {
+      return errorsArray.reduce(
+        (result, error) =>
+          (result += `${result ? " & " : ""}${error.$message}`),
+        ""
+      );
     },
   },
   computed: {
@@ -104,13 +177,22 @@ export default {
             <BaseInput
               type="text"
               :value="task.title"
-              v-model="updatedTaskTitle"
+              :error="bundleErrors(v$.model.updatedTaskTitle.$errors)"
+              @blur="this.v$.model.updatedTaskTitle.$validate"
+              v-model="model.updatedTaskTitle"
             />
-            <BaseInput type="date" v-model="updatedTaskDueDate" />
+            <BaseInput
+              type="date"
+              :error="bundleErrors(v$.model.updatedTaskDueDate.$errors)"
+              @blur="this.v$.model.updatedTaskDueDate.$validate"
+              v-model="model.updatedTaskDueDate"
+            />
             <BaseInput
               type="text"
               :value="task.description"
-              v-model="updatedTaskDescription"
+              :error="bundleErrors(v$.model.updatedTaskDescription.$errors)"
+              @blur="this.v$.model.updatedTaskDescription.$validate"
+              v-model="model.updatedTaskDescription"
             />
             <div class="flex h-12 space-x-4">
               <BaseButton :background="'bg-todo-green'" @click="saveEditChanges"

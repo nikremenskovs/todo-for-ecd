@@ -16,7 +16,8 @@ export default {
       twoWeeksFromToday: new Date(
         Date.now() + 14 * 24 * 60 * 60 * 1000
       ).toISOString(),
-      dueDateErrorMessage: "It must be within two weeks either way from today!",
+      dueDateErrorMessage:
+        "This must be within two weeks either way from today!",
 
       model: {
         title: "",
@@ -85,7 +86,6 @@ export default {
       );
     },
     submitForm() {
-      console.log(this.twoWeeksBeforeToday);
       this.v$.$validate();
       if (!this.v$.$error) {
         this.$emit("form-data", this.model);
