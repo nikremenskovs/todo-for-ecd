@@ -267,22 +267,5 @@ export default {
         </div>
       </label>
     </li>
-    <!-- <ConfirmationModal v-if="showConfirmationModal">
-      <div
-        class="flex h-full flex-col items-center justify-evenly p-6 text-center"
-      >
-        <p class="font-yeseva-one text-2xl text-todo-white">
-          Are you sure you want to delete this item?
-        </p>
-        <div class="flex w-full justify-around space-x-4">
-          <BaseButton @click="removeTask" :background="'bg-todo-green'">
-            Yes
-          </BaseButton>
-          <BaseButton @click="cancelDelete" :background="'bg-todo-red'">
-            No
-          </BaseButton>
-        </div>
-      </div>
-    </ConfirmationModal> -->
   </div>
 </template>
