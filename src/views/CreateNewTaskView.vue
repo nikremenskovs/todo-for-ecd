@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-  <BaseTasksView :pageTitle="'Create new task'">
+  <BaseTasksView :pageTitle="'New'">
     <CreateNewTaskForm @form-data="saveFormData" />
   </BaseTasksView>
 </template>

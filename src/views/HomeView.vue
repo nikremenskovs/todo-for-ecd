@@ -2,7 +2,7 @@
 
 <template>
   <section
-    class="homepage flex h-screen flex-col items-center justify-center text-center text-todo-primary"
+    class="homepage mx-auto flex h-screen max-w-lg flex-col items-center justify-center text-center text-todo-primary"
   >
     <img
       class="homepage__image mb-12 h-64 w-64 rounded-full"
