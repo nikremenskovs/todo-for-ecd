@@ -58,21 +58,21 @@ export default {
 
 <template>
   <form @submit.prevent="submitForm" class="flex flex-col space-y-10 px-4">
-    <BaseInput
+    <SharedInput
       type="text"
       placeholder="Your goal is..?"
       :error="bundleValidationErrors(v$.model.title.$errors)"
       @blur="this.v$.model.title.$validate"
       v-model.trim="model.title"
     />
-    <BaseInput
+    <SharedInput
       type="textarea"
       placeholder="Describe your plan..."
       :error="bundleValidationErrors(v$.model.description.$errors)"
       @blur="this.v$.model.description.$validate"
       v-model.trim="model.description"
     />
-    <BaseInput
+    <SharedInput
       type="date"
       :error="bundleValidationErrors(v$.model.dueDate.$errors)"
       @blur="this.v$.model.dueDate.$validate"
@@ -98,6 +98,6 @@ export default {
         {{ bundleValidationErrors(v$.model.completed.$errors) }}
       </p>
     </div>
-    <BaseButton :background="'bg-todo-green'">Submit</BaseButton>
+    <SharedButton :background="'bg-todo-green'">Submit</SharedButton>
   </form>
 </template>

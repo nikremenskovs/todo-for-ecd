@@ -29,50 +29,50 @@ export default {
         </div>
         <ul class="dashboard-items z-10 space-y-4">
           <li class="dashboard-items__all">
-            <BaseButton
+            <SharedButton
               :to="'/dashboard/tasks/all'"
               :background="'bg-todo-secondary'"
             >
               <i class="fa-solid fa-list-check mr-4"></i>
               All ({{ this.getTodos("all").length }})
-            </BaseButton>
+            </SharedButton>
           </li>
 
           <li class="dashboard-items__pending">
-            <BaseButton
+            <SharedButton
               :to="'/dashboard/tasks/pending'"
               :background="'bg-todo-secondary'"
             >
               <i class="fa-solid fa-list-ul mr-4"></i>
               Pending ({{ this.getTodos("pending").length }})
-            </BaseButton>
+            </SharedButton>
           </li>
 
           <li class="dashboard-items__completed">
-            <BaseButton
+            <SharedButton
               :to="'/dashboard/tasks/completed'"
               :background="'bg-todo-secondary'"
             >
               <i class="fa-solid fa-check mr-4"></i>
               Completed ({{ this.getTodos("completed").length }})
-            </BaseButton>
+            </SharedButton>
           </li>
 
           <li class="dashboard-items__overdue">
-            <BaseButton
+            <SharedButton
               :to="'/dashboard/tasks/overdue'"
               :background="'bg-todo-red'"
             >
               <i class="fa-solid fa-triangle-exclamation mr-4"></i>
               Overdue ({{ this.getTodos("overdue").length }})
-            </BaseButton>
+            </SharedButton>
           </li>
 
           <li class="dashboard-items__new">
-            <BaseButton :to="'/dashboard/new'" :background="'bg-todo-green'">
+            <SharedButton :to="'/dashboard/new'" :background="'bg-todo-green'">
               <i class="fa-solid fa-square-plus mr-4"></i>
               Create New
-            </BaseButton>
+            </SharedButton>
           </li>
         </ul>
       </div>
