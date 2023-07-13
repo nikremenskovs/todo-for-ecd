@@ -36,14 +36,14 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    fetchTasks(state, payload) {
+    setTasks(state, payload) {
       state.tasks = payload;
     },
   },
   actions: {
     async fetchTasks(context) {
       const allTasks = await getTasksFirestore();
-      context.commit("fetchTasks", allTasks);
+      context.commit("setTasks", allTasks);
     },
 
     async deleteTask(context, docId) {
