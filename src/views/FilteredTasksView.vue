@@ -15,5 +15,5 @@ export default {
 </script>
 
 <template>
-  <BaseNestedWrapper :pageTitle="status" :tasks="this.getTodos(status)" />
+  <NestedLayout :pageTitle="status" :tasks="this.getTodos(status)" />
 </template>

@@ -17,8 +17,8 @@
       productivity with our all-in-one to-do app, designed to streamline your
       tasks, prioritize goals, and ensure a successful and fulfilling day
     </p>
-    <BaseButton to="/dashboard" :background="'bg-todo-green'"
-      >GET STARTED</BaseButton
+    <SharedButton to="/dashboard" :background="'bg-todo-green'"
+      >GET STARTED</SharedButton
     >
   </section>
 </template>

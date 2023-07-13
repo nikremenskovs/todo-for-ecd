@@ -4,15 +4,15 @@ import router from "./router";
 import store from "./store";
 import "./assets/tailwind.css";
 
-import BaseButton from "./components/BaseButton.vue";
-import BaseNestedWrapper from "./components/BaseNestedWrapper.vue";
-import BaseInput from "./components/BaseInput.vue";
+import SharedButton from "./components/SharedButton.vue";
+import NestedLayout from "./components/NestedLayout.vue";
+import SharedInput from "./components/SharedInput.vue";
 
 Vue.config.productionTip = false;
 
-Vue.component("BaseButton", BaseButton);
-Vue.component("BaseNestedWrapper", BaseNestedWrapper);
-Vue.component("BaseInput", BaseInput);
+Vue.component("SharedButton", SharedButton);
+Vue.component("NestedLayout", NestedLayout);
+Vue.component("SharedInput", SharedInput);
 
 new Vue({
   router,

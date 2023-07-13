@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-  <BaseNestedWrapper :pageTitle="'New'">
+  <NestedLayout :pageTitle="'New'">
     <CreateNewTaskForm @form-data="saveFormData" />
-  </BaseNestedWrapper>
+  </NestedLayout>
 </template>

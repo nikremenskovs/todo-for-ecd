@@ -114,20 +114,20 @@ export default {
     >
       <div class="w-4/5 font-marmelad">
         <div v-if="isEditing" class="mb-4 flex flex-col space-y-4">
-          <BaseInput
+          <SharedInput
             type="text"
             :value="task.title"
             :error="bundleValidationErrors(v$.model.updatedTaskTitle.$errors)"
             @blur="this.v$.model.updatedTaskTitle.$validate"
             v-model="model.updatedTaskTitle"
           />
-          <BaseInput
+          <SharedInput
             type="date"
             :error="bundleValidationErrors(v$.model.updatedTaskDueDate.$errors)"
             @blur="this.v$.model.updatedTaskDueDate.$validate"
             v-model="model.updatedTaskDueDate"
           />
-          <BaseInput
+          <SharedInput
             type="text"
             :value="task.description"
             :error="
@@ -137,11 +137,13 @@ export default {
             v-model="model.updatedTaskDescription"
           />
           <div class="flex h-12 space-x-4">
-            <BaseButton :background="'bg-todo-green'" @click="saveEditChanges"
-              >Save</BaseButton
+            <SharedButton :background="'bg-todo-green'" @click="saveEditChanges"
+              >Save</SharedButton
             >
-            <BaseButton :background="'bg-todo-red'" @click="discardEditChanges"
-              >Discard</BaseButton
+            <SharedButton
+              :background="'bg-todo-red'"
+              @click="discardEditChanges"
+              >Discard</SharedButton
             >
           </div>
         </div>
@@ -151,15 +153,18 @@ export default {
             Would you like to delete this task?
           </p>
           <div class="flex h-12 space-x-4">
-            <BaseButton
+            <SharedButton
               @click="deleteTask(task.docId)"
               :background="'bg-todo-green'"
             >
               Yes
-            </BaseButton>
-            <BaseButton @click="isDeleting = false" :background="'bg-todo-red'">
+            </SharedButton>
+            <SharedButton
+              @click="isDeleting = false"
+              :background="'bg-todo-red'"
+            >
               No
-            </BaseButton>
+            </SharedButton>
           </div>
         </div>
 
@@ -168,12 +173,15 @@ export default {
             Would you like to clone this task?
           </p>
           <div class="flex h-12 space-x-4">
-            <BaseButton @click="cloneTask" :background="'bg-todo-green'">
+            <SharedButton @click="cloneTask" :background="'bg-todo-green'">
               Yes
-            </BaseButton>
-            <BaseButton @click="isCloning = false" :background="'bg-todo-red'">
+            </SharedButton>
+            <SharedButton
+              @click="isCloning = false"
+              :background="'bg-todo-red'"
+            >
               No
-            </BaseButton>
+            </SharedButton>
           </div>
         </div>
 

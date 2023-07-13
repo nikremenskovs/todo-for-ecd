@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "BaseInput",
+  name: "SharedInput",
   props: {
     error: {
       type: String,
