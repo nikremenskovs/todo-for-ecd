@@ -30,8 +30,15 @@ export default {
       </h1>
     </div>
 
-    <ul class="mt-28 px-4">
-      <TaskCard v-for="task in tasks" :key="task.id" :task="task" />
+    <h2
+      v-if="tasks.length === 0 && this.$route.path !== '/dashboard/new'"
+      class="mt-28 text-center font-marmelad text-2xl tracking-wider text-todo-primary"
+    >
+      You have no tasks in this category
+    </h2>
+
+    <ul v-else class="mt-28 px-4">
+      <TaskCard v-for="task in tasks" :key="task.docId" :task="task" />
     </ul>
 
     <slot />

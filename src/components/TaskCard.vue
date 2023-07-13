@@ -39,6 +39,7 @@ export default {
       },
     };
   },
+
   validations() {
     return {
       model: {
@@ -52,21 +53,10 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      "createNewTask",
-      "updateTask",
-      "setTaskCompletion",
-      "deleteTask",
-    ]),
+    ...mapActions(["createNewTask", "updateTask", "deleteTask"]),
     updateCompletion(event) {
       const completed = event.target.checked;
-      this.setTaskCompletion({ taskId: this.task.id, completed });
-    },
-    removeTask() {
-      this.deleteTask(this.task.id);
-    },
-    cancelDelete() {
-      this.isDeleting = false;
+      this.updateTask({ docId: this.task.docId, completed });
     },
     discardEditChanges() {
       this.model.updatedTaskTitle = this.task.title;
@@ -78,25 +68,17 @@ export default {
       this.v$.$validate();
       if (!this.v$.$error) {
         const updatedTask = {
-          id: this.task.id,
+          docId: this.task.docId,
           title: this.model.updatedTaskTitle,
           dueDate: this.model.updatedTaskDueDate,
           description: this.model.updatedTaskDescription,
-          completed: this.task.completed,
         };
         this.updateTask(updatedTask);
         this.isEditing = false;
       }
     },
     cloneTask() {
-      const taskToClone = {
-        title: this.task.title,
-        dueDate: this.task.dueDate,
-        description: this.task.description,
-        completed: this.task.completed,
-      };
-      this.createNewTask(taskToClone);
-
+      this.createNewTask(this.task);
       this.isCloning = false;
     },
     bundleValidationErrors,
@@ -169,10 +151,13 @@ export default {
             Would you like to delete this task?
           </p>
           <div class="flex h-12 space-x-4">
-            <BaseButton @click="removeTask" :background="'bg-todo-green'">
+            <BaseButton
+              @click="deleteTask(task.docId)"
+              :background="'bg-todo-green'"
+            >
               Yes
             </BaseButton>
-            <BaseButton @click="cancelDelete" :background="'bg-todo-red'">
+            <BaseButton @click="isDeleting = false" :background="'bg-todo-red'">
               No
             </BaseButton>
           </div>
