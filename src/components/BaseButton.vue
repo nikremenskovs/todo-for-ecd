@@ -2,7 +2,7 @@
 export default {
   props: {
     to: {
-      type: Object,
+      type: String,
       required: false,
     },
     background: {

@@ -15,22 +15,24 @@ export default new Vuex.Store({
     tasks: [],
   },
   getters: {
-    allTasks(state) {
-      return state.tasks;
-    },
-    completedTasks(state) {
-      return state.tasks.filter((task) => task.completed);
-    },
-    pendingTasks(state) {
-      return state.tasks.filter((task) => !task.completed);
-    },
-    overdueTasks(state, getters) {
-      const today = new Date();
-      return getters.pendingTasks.filter((task) => {
-        const [year, month, day] = task.dueDate.split("-");
-        const dueDate = new Date(year, month - 1, day);
-        return dueDate <= today;
+    getTodos: (state) => (status) => {
+      let filteredTasks = state.tasks.filter((task) => {
+        let today, year, month, day, dueDate;
+        switch (status) {
+          case "completed":
+            return task.completed;
+          case "pending":
+            return !task.completed;
+          case "overdue":
+            today = new Date();
+            [year, month, day] = task.dueDate.split("-");
+            dueDate = new Date(year, month - 1, day);
+            return !task.completed && dueDate <= today;
+          default:
+            return true;
+        }
       });
+      return filteredTasks;
     },
   },
   mutations: {

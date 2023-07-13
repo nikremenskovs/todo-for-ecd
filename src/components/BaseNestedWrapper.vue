@@ -25,7 +25,9 @@ export default {
         <i class="fa-solid fa-arrow-left-long mb-4 text-4xl lg:hidden"></i>
       </router-link>
 
-      <h1 class="mb-4 flex flex-col font-marmelad text-4xl tracking-wide">
+      <h1
+        class="mb-4 flex flex-col font-marmelad text-4xl capitalize tracking-wide"
+      >
         {{ this.pageTitle }}
       </h1>
     </div>

@@ -17,24 +17,9 @@ const routes = [
     component: () => import("../views/DashboardView.vue"),
     children: [
       {
-        path: "all",
-        name: "all",
-        component: () => import("../views/AllTasksView.vue"),
-      },
-      {
-        path: "pending",
-        name: "pending",
-        component: () => import("../views/PendingTasksView.vue"),
-      },
-      {
-        path: "completed",
-        name: "completed",
-        component: () => import("../views/CompletedTasksView.vue"),
-      },
-      {
-        path: "overdue",
-        name: "overdue",
-        component: () => import("../views/OverdueTasksView.vue"),
+        path: "tasks/:status",
+        name: "tasks",
+        component: () => import("../views/FilteredTasksView.vue"),
       },
       {
         path: "new",

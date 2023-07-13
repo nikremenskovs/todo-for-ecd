@@ -3,12 +3,7 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters([
-      "allTasks",
-      "completedTasks",
-      "pendingTasks",
-      "overdueTasks",
-    ]),
+    ...mapGetters(["getTodos"]),
   },
 };
 </script>
@@ -34,41 +29,47 @@ export default {
         </div>
         <ul class="dashboard-items z-10 space-y-4">
           <li class="dashboard-items__all">
-            <BaseButton :to="{ name: 'all' }" :background="'bg-todo-secondary'">
+            <BaseButton
+              :to="'/dashboard/tasks/all'"
+              :background="'bg-todo-secondary'"
+            >
               <i class="fa-solid fa-list-check mr-4"></i>
-              All ({{ this.allTasks.length }})
+              All ({{ this.getTodos("all").length }})
             </BaseButton>
           </li>
 
           <li class="dashboard-items__pending">
             <BaseButton
-              :to="{ name: 'pending' }"
+              :to="'/dashboard/tasks/pending'"
               :background="'bg-todo-secondary'"
             >
               <i class="fa-solid fa-list-ul mr-4"></i>
-              Pending ({{ this.pendingTasks.length }})
+              Pending ({{ this.getTodos("pending").length }})
             </BaseButton>
           </li>
 
           <li class="dashboard-items__completed">
             <BaseButton
-              :to="{ name: 'completed' }"
+              :to="'/dashboard/tasks/completed'"
               :background="'bg-todo-secondary'"
             >
               <i class="fa-solid fa-check mr-4"></i>
-              Completed ({{ this.completedTasks.length }})
+              Completed ({{ this.getTodos("completed").length }})
             </BaseButton>
           </li>
 
           <li class="dashboard-items__overdue">
-            <BaseButton :to="{ name: 'overdue' }" :background="'bg-todo-red'">
+            <BaseButton
+              :to="'/dashboard/tasks/overdue'"
+              :background="'bg-todo-red'"
+            >
               <i class="fa-solid fa-triangle-exclamation mr-4"></i>
-              Overdue ({{ this.overdueTasks.length }})
+              Overdue ({{ this.getTodos("overdue").length }})
             </BaseButton>
           </li>
 
           <li class="dashboard-items__new">
-            <BaseButton :to="{ name: 'new' }" :background="'bg-todo-green'">
+            <BaseButton :to="'/dashboard/new'" :background="'bg-todo-green'">
               <i class="fa-solid fa-square-plus mr-4"></i>
               Create New
             </BaseButton>

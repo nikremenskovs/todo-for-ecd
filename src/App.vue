@@ -5,8 +5,14 @@ export default {
   methods: {
     ...mapActions(["fetchTasks"]),
   },
-  created() {
-    this.fetchTasks();
+  mounted() {
+    (async () => {
+      try {
+        this.fetchTasks();
+      } catch {
+        throw new Error("An error occurred when fetching tasks.");
+      }
+    })();
   },
 };
 </script>
