@@ -1,70 +1,28 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import {
+  getTasksFirestore,
+  postTaskFirestore,
+  putTaskFirestore,
+  deleteTaskFirestore,
+} from "../services/firebaseServices";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    tasks: [
-      {
-        id: 1,
-        title: "My first task",
-        dueDate: "2023-07-01",
-        description:
-          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
-        completed: false,
-      },
-      {
-        id: 2,
-        title: "My second task",
-        dueDate: "2023-07-02",
-        description:
-          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
-        completed: false,
-      },
-      {
-        id: 3,
-        title: "My third task",
-        dueDate: "2023-07-20",
-        description:
-          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
-        completed: false,
-      },
-      {
-        id: 4,
-        title: "My fourth task",
-        dueDate: "2023-07-04",
-        description:
-          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
-        completed: true,
-      },
-      {
-        id: 5,
-        title: "My fifth task",
-        dueDate: "2023-07-05",
-        description:
-          "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea aspernatur praesentium earum ex asperiores numquam enim hic magnam quae vero.",
-        completed: true,
-      },
-    ],
+    tasks: [],
   },
   getters: {
     allTasks(state) {
-      return state.tasks
-        .slice()
-        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1));
+      return state.tasks;
     },
     completedTasks(state) {
-      return state.tasks
-        .filter((task) => task.completed)
-        .slice()
-        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1));
+      return state.tasks.filter((task) => task.completed);
     },
     pendingTasks(state) {
-      return state.tasks
-        .filter((task) => !task.completed)
-        .slice()
-        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1));
+      return state.tasks.filter((task) => !task.completed);
     },
     overdueTasks(state, getters) {
       const today = new Date();
@@ -76,46 +34,35 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    updateTaskCompletion(state, { taskId, completed }) {
-      const task = state.tasks.find((task) => task.id === taskId);
-      if (task) {
-        task.completed = completed;
-      }
-    },
-    deleteTask(state, payload) {
-      state.tasks = state.tasks.filter((task) => task.id !== payload);
-    },
-    createNewTask(state, payload) {
-      state.tasks.push(payload);
-    },
-    updateTask(state, payload) {
-      const index = state.tasks.findIndex((task) => task.id === payload.id);
-      if (index !== -1) {
-        state.tasks.splice(index, 1, payload);
-      }
+    fetchTasks(state, payload) {
+      state.tasks = payload;
     },
   },
   actions: {
-    setTaskCompletion(context, { taskId, completed }) {
-      //api to server here?
-      context.commit("updateTaskCompletion", { taskId, completed });
+    async fetchTasks(context) {
+      const allTasks = await getTasksFirestore();
+      context.commit("fetchTasks", allTasks);
     },
-    deleteTask(context, data) {
-      context.commit("deleteTask", data);
+
+    async deleteTask(context, docId) {
+      await deleteTaskFirestore(docId);
+      context.dispatch("fetchTasks");
     },
-    createNewTask(context, data) {
-      const newTaskId = crypto.randomUUID();
+    async createNewTask(context, data) {
       const newTaskData = {
-        id: newTaskId,
         title: data.title,
         dueDate: data.dueDate,
         description: data.description,
         completed: data.completed,
       };
-      context.commit("createNewTask", newTaskData);
+      await postTaskFirestore(newTaskData);
+      context.dispatch("fetchTasks");
     },
-    updateTask(context, data) {
-      context.commit("updateTask", data);
+    async updateTask(context, data) {
+      const { docId, ...relevantData } = data;
+      console.log(relevantData);
+      await putTaskFirestore(docId, relevantData);
+      context.dispatch("fetchTasks");
     },
   },
 });

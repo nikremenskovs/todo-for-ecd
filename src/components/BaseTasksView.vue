@@ -31,7 +31,7 @@ export default {
     </div>
 
     <ul class="mt-28 px-4">
-      <TaskCard v-for="task in tasks" :key="task.id" :task="task" />
+      <TaskCard v-for="task in tasks" :key="task.docId" :task="task" />
     </ul>
 
     <slot />
