@@ -39,6 +39,15 @@ export default new Vuex.Store({
     setTasks(state, payload) {
       state.tasks = payload;
     },
+    deleteTask(state, payload) {
+      state.tasks = state.tasks.filter((task) => task.docId !== payload);
+    },
+    updateTask(state, data) {
+      const index = state.tasks.findIndex((task) => task.docId === data.docId);
+      if (index !== -1) {
+        state.tasks.splice(index, 1, data);
+      }
+    },
   },
   actions: {
     async fetchTasks(context) {
@@ -48,22 +57,16 @@ export default new Vuex.Store({
 
     async deleteTask(context, docId) {
       await deleteTaskFirestore(docId);
-      context.dispatch("fetchTasks");
+      context.commit("deleteTask", docId);
     },
     async createNewTask(context, data) {
-      const newTaskData = {
-        title: data.title,
-        dueDate: data.dueDate,
-        description: data.description,
-        completed: data.completed,
-      };
-      await postTaskFirestore(newTaskData);
+      await postTaskFirestore(data);
       context.dispatch("fetchTasks");
     },
     async updateTask(context, data) {
       const { docId, ...relevantData } = data;
       await putTaskFirestore(docId, relevantData);
-      context.dispatch("fetchTasks");
+      context.commit("updateTask", data);
     },
   },
 });

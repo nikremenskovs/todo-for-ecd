@@ -55,8 +55,15 @@ export default {
   methods: {
     ...mapActions(["createNewTask", "updateTask", "deleteTask"]),
     updateCompletion(event) {
-      const completed = event.target.checked;
-      this.updateTask({ docId: this.task.docId, completed });
+      const updateCompletionData = {
+        docId: this.task.docId,
+        title: this.task.title,
+        dueDate: this.task.dueDate,
+        description: this.task.description,
+        completed: event.target.checked,
+      };
+
+      this.updateTask(updateCompletionData);
     },
     discardEditChanges() {
       this.model.updatedTaskTitle = this.task.title;
@@ -72,13 +79,20 @@ export default {
           title: this.model.updatedTaskTitle,
           dueDate: this.model.updatedTaskDueDate,
           description: this.model.updatedTaskDescription,
+          completed: this.task.completed,
         };
         this.updateTask(updatedTask);
         this.isEditing = false;
       }
     },
     cloneTask() {
-      this.createNewTask(this.task);
+      const taskToClone = {
+        title: this.task.title,
+        dueDate: this.task.dueDate,
+        description: this.task.description,
+        completed: this.task.completed,
+      };
+      this.createNewTask(taskToClone);
       this.isCloning = false;
     },
     bundleValidationErrors,
