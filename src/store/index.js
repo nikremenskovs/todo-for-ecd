@@ -60,7 +60,6 @@ export default new Vuex.Store({
     },
     async updateTask(context, data) {
       const { docId, ...relevantData } = data;
-      console.log(relevantData);
       await putTaskFirestore(docId, relevantData);
       context.dispatch("fetchTasks");
     },

@@ -39,6 +39,7 @@ export default {
       },
     };
   },
+
   validations() {
     return {
       model: {
@@ -89,9 +90,6 @@ export default {
       const dueDate = new Date(year, month - 1, day);
       return dueDate <= today && !this.task.completed;
     },
-  },
-  created() {
-    console.log(this.task);
   },
 };
 </script>
