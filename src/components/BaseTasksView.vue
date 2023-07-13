@@ -13,9 +13,6 @@ export default {
       default: () => [],
     },
   },
-  created() {
-    console.log(this.$route.path);
-  },
 };
 </script>
 
