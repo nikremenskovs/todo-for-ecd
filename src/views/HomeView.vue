@@ -17,7 +17,7 @@
       productivity with our all-in-one to-do app, designed to streamline your
       tasks, prioritize goals, and ensure a successful and fulfilling day
     </p>
-    <BaseButton :to="{ name: 'dashboard' }" :background="'bg-todo-green'"
+    <BaseButton to="/dashboard" :background="'bg-todo-green'"
       >GET STARTED</BaseButton
     >
   </section>

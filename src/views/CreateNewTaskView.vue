@@ -8,14 +8,14 @@ export default {
     ...mapActions(["createNewTask"]),
     saveFormData(data) {
       this.createNewTask(data);
-      this.$router.push({ name: "all" });
+      this.$router.push("/dashboard/tasks/all");
     },
   },
 };
 </script>
 
 <template>
-  <BaseTasksView :pageTitle="'New'">
+  <BaseNestedWrapper :pageTitle="'New'">
     <CreateNewTaskForm @form-data="saveFormData" />
-  </BaseTasksView>
+  </BaseNestedWrapper>
 </template>

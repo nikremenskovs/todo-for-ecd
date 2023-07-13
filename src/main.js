@@ -5,13 +5,13 @@ import store from "./store";
 import "./assets/tailwind.css";
 
 import BaseButton from "./components/BaseButton.vue";
-import BaseTasksView from "./components/BaseTasksView.vue";
+import BaseNestedWrapper from "./components/BaseNestedWrapper.vue";
 import BaseInput from "./components/BaseInput.vue";
 
 Vue.config.productionTip = false;
 
 Vue.component("BaseButton", BaseButton);
-Vue.component("BaseTasksView", BaseTasksView);
+Vue.component("BaseNestedWrapper", BaseNestedWrapper);
 Vue.component("BaseInput", BaseInput);
 
 new Vue({
