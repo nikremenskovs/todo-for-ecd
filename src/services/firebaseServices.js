@@ -38,8 +38,9 @@ export const postTaskFirestore = async (taskToAdd) => {
   await addDoc(tasksCollection, taskToAdd);
 };
 
-export const putTaskFirestore = async (taskId, updatedData) => {
-  await updateDoc(doc(db, "tasks", taskId), updatedData);
+export const putTaskFirestore = async (data) => {
+  const { docId, ...relevantData } = data;
+  await updateDoc(doc(db, "tasks", docId), relevantData);
 };
 
 export const deleteTaskFirestore = async (taskId) => {

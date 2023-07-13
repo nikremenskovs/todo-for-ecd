@@ -53,20 +53,23 @@ export default new Vuex.Store({
     async fetchTasks(context) {
       const allTasks = await getTasksFirestore();
       context.commit("setTasks", allTasks);
+      return allTasks;
     },
 
     async deleteTask(context, docId) {
       await deleteTaskFirestore(docId);
       context.commit("deleteTask", docId);
+      return docId;
     },
     async createNewTask(context, data) {
       await postTaskFirestore(data);
       context.dispatch("fetchTasks");
+      return data;
     },
     async updateTask(context, data) {
-      const { docId, ...relevantData } = data;
-      await putTaskFirestore(docId, relevantData);
+      await putTaskFirestore(data);
       context.commit("updateTask", data);
+      return data.docID;
     },
   },
 });
