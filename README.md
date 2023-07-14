@@ -47,6 +47,10 @@ npm run serve
 ## Video
 
 
+https://github.com/nikremenskovs/todo-for-ecd/assets/43447119/6ff65cfc-6d2f-4acc-91fb-6319e2c426bb
+
+
+
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to submit a pull request.
