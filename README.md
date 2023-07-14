@@ -16,6 +16,8 @@ The To-Do App is built using the following technologies:
 
 ## How to Run Locally
 
+Please do not hesitate to get in touch with the code maintainers in order to obtain the latest configuration to run the all locally (for environmental variables)
+
 To spin up the project locally, follow these steps:
 
 1. Clone the repository:
