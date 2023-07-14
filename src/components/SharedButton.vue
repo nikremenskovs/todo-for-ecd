@@ -25,7 +25,7 @@ export default {
     :to="this.to ? this.to : ''"
     :class="this.background"
     :exact-active-class="'border-4 border-todo-primary'"
-    @click="$emit('click')"
+    v-on="$listeners"
   >
     <slot />
   </component>

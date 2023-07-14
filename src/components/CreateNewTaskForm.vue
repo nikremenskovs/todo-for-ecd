@@ -28,6 +28,11 @@ export default {
         description: "",
         completed: "",
       },
+      statusOptions: [
+        { value: null, label: "Select status", disabled: true },
+        { value: true, label: "Completed" },
+        { value: false, label: "Pending" },
+      ],
     };
   },
 
@@ -81,7 +86,6 @@ export default {
 
     <div>
       <select
-        :error="bundleValidationErrors(v$.model.completed.$errors)"
         @blur="this.v$.model.completed.$validate"
         v-model="model.completed"
         :class="{
@@ -89,9 +93,14 @@ export default {
         }"
         class="mb-2 h-12 w-full rounded-xl bg-todo-yellow/50 px-2 font-marmelad text-xl text-todo-primary"
       >
-        <option :value="null" disabled>Select status</option>
-        <option :value="true">Completed</option>
-        <option :value="false">Pending</option>
+        <option
+          v-for="option in statusOptions"
+          :key="option.label"
+          :value="option.value"
+          :disabled="option.disabled"
+        >
+          {{ option.label }}
+        </option>
       </select>
       <p
         class="font-yeseva-one text-sm tracking-wider text-todo-red/75"
