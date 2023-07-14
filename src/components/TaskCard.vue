@@ -54,16 +54,20 @@ export default {
 
   methods: {
     ...mapActions(["createNewTask", "updateTask", "deleteTask"]),
-    updateCompletion(event) {
-      const updateCompletionData = {
-        docId: this.task.docId,
-        title: this.task.title,
-        dueDate: this.task.dueDate,
-        description: this.task.description,
-        completed: event.target.checked,
-      };
+    async updateCompletion(event) {
+      try {
+        const updateCompletionData = {
+          docId: this.task.docId,
+          title: this.task.title,
+          dueDate: this.task.dueDate,
+          description: this.task.description,
+          completed: event.target.checked,
+        };
 
-      this.updateTask(updateCompletionData);
+        this.updateTask(updateCompletionData);
+      } catch {
+        throw new Error("An error occurred when putting task.");
+      }
     },
     discardEditChanges() {
       this.model.updatedTaskTitle = this.task.title;
@@ -85,15 +89,26 @@ export default {
         this.isEditing = false;
       }
     },
-    cloneTask() {
-      const taskToClone = {
-        title: this.task.title,
-        dueDate: this.task.dueDate,
-        description: this.task.description,
-        completed: this.task.completed,
-      };
-      this.createNewTask(taskToClone);
-      this.isCloning = false;
+    async cloneTask() {
+      try {
+        const taskToClone = {
+          title: this.task.title,
+          dueDate: this.task.dueDate,
+          description: this.task.description,
+          completed: this.task.completed,
+        };
+        this.createNewTask(taskToClone);
+        this.isCloning = false;
+      } catch {
+        throw new Error("An error occurred when fetching task.");
+      }
+    },
+    async handleDeletion() {
+      try {
+        this.deleteTask(this.task.docId);
+      } catch {
+        throw new Error("An error occurred when deleting task.");
+      }
     },
     bundleValidationErrors,
   },
@@ -167,10 +182,7 @@ export default {
             Would you like to delete this task?
           </p>
           <div class="flex h-12 space-x-4">
-            <SharedButton
-              @click="deleteTask(task.docId)"
-              :background="'bg-todo-green'"
-            >
+            <SharedButton @click="handleDeletion" :background="'bg-todo-green'">
               Yes
             </SharedButton>
             <SharedButton

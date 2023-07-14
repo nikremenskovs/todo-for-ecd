@@ -12,12 +12,12 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBERldQ8dptEJv1Dzf8286euqIDw4s9JH8",
-  authDomain: "todo-for-ecd-1c83f.firebaseapp.com",
-  projectId: "todo-for-ecd-1c83f",
-  storageBucket: "todo-for-ecd-1c83f.appspot.com",
-  messagingSenderId: "179488307606",
-  appId: "1:179488307606:web:d361fa977e2421013445b7",
+  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+  authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.VUE_APP_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

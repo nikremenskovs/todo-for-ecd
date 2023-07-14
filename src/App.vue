@@ -8,7 +8,7 @@ export default {
   mounted() {
     (async () => {
       try {
-        this.fetchTasks();
+        await this.fetchTasks();
       } catch {
         throw new Error("An error occurred when fetching tasks.");
       }
