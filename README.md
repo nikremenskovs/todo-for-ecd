@@ -14,9 +14,15 @@ The To-Do App is built using the following technologies:
 - Vuelidate: A validation library for Vue.js applications.
 - Firebase Firestore: A cloud-hosted NoSQL database by Firebase for storing and syncing data.
 
+## Video
+
+
+https://github.com/nikremenskovs/todo-for-ecd/assets/43447119/6ff65cfc-6d2f-4acc-91fb-6319e2c426bb
+
+
 ## How to Run Locally
 
-Please do not hesitate to get in touch with the code maintainers in order to obtain the latest configuration to run the all locally (for environmental variables)
+Please do not hesitate to get in touch in order to obtain the latest configuration (environmental variables) to run the app locally 
 
 To spin up the project locally, follow these steps:
 
@@ -43,6 +49,8 @@ npm install
 ```
 npm run serve
 ```
+
+
 
 ## Contributing
 
