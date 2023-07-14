@@ -84,7 +84,9 @@ export default {
         :error="bundleValidationErrors(v$.model.completed.$errors)"
         @blur="this.v$.model.completed.$validate"
         v-model="model.completed"
-        :class="v$.model.completed.$error ? 'border-2 border-todo-red' : ''"
+        :class="{
+          'border-2 border-todo-red': v$.model.completed.$error,
+        }"
         class="mb-2 h-12 w-full rounded-xl bg-todo-yellow/50 px-2 font-marmelad text-xl text-todo-primary"
       >
         <option :value="null" disabled>Select status</option>

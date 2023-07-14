@@ -116,7 +116,7 @@ export default {
       type="checkbox"
       name="checkbox"
       :checked="task.completed"
-      :class="isEditing || isDeleting || isCloning ? 'invisible' : ''"
+      :class="{ invisible: isEditing || isDeleting || isCloning }"
       class="peer h-8 w-8 appearance-none rounded-full border-2 border-todo-primary/25 checked:bg-todo-primary focus:outline-none lg:cursor-pointer lg:group-hover:border-todo-primary/75"
       @change="updateCompletion"
     />
@@ -124,7 +124,7 @@ export default {
     <label
       for=""
       class="mb-8 flex w-4/5 text-todo-primary peer-checked:font-bold"
-      :class="isOverdue ? 'text-todo-red' : 'text-todo-primary'"
+      :class="{ 'text-todo-red': isOverdue }"
     >
       <div class="w-4/5 font-marmelad">
         <div v-if="isEditing" class="mb-4 flex flex-col space-y-4">
@@ -199,7 +199,7 @@ export default {
           </div>
         </div>
 
-        <div v-else :class="task.completed ? 'line-through' : ''">
+        <div v-else :class="{ 'line-through': task.completed }">
           <h2 class="text-xl font-bold">
             {{ task.title }}
           </h2>
@@ -210,7 +210,7 @@ export default {
         </div>
 
         <div
-          :class="isEditing || isDeleting || isCloning ? 'invisible' : ''"
+          :class="{ invisible: isEditing || isDeleting || isCloning }"
           class="task-card__actions flex w-1/3 space-x-4 text-xl"
         >
           <i
